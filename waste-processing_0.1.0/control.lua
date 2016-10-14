@@ -64,5 +64,5 @@ end)
 
 Event.register(defines.events.on_entity_died, function(event)
   -- create unmanaged polution
-  create_polution_at( event.entity.position, event.entity.surface, math.ceiling( event.entity.get_item_count() * Config.unmanaged_polution_rate ) )
+  create_polution_at( event.entity.position, event.entity.surface, math.ceil( event.entity.get_item_count() * Config.unmanaged_polution_rate ) )
 end)

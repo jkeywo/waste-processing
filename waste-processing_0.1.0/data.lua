@@ -10,19 +10,19 @@ data:extend({
       main =
       {
         {
-          picture = "__garbage__/graphics/terrain/waste1.png",
+          picture = "__waste-processing__/graphics/terrain/waste1.png",
           count = 16,
           size = 1
         },
         {
-          picture = "__garbage__/graphics/terrain/waste2.png",
+          picture = "__waste-processing__/graphics/terrain/waste2.png",
           count = 16,
           size = 2,
           probability = 0.39,
           weights = {0.025, 0.010, 0.013, 0.025, 0.025, 0.100, 0.100, 0.005, 0.010, 0.010, 0.005, 0.005, 0.001, 0.015, 0.020, 0.020}
         },
         {
-          picture = "__garbage__/graphics/terrain/waste4.png",
+          picture = "__waste-processing__/graphics/terrain/waste4.png",
           count = 22,
           line_length = 11,
           size = 4,
@@ -32,17 +32,17 @@ data:extend({
       },
       inner_corner =
       {
-        picture = "__garbage__/graphics/terrain/waste-inner-corner.png",
+        picture = "__waste-processing__/graphics/terrain/waste-inner-corner.png",
         count = 8
       },
       outer_corner =
       {
-        picture = "__garbage__/graphics/terrain/waste-outer-corner.png",
+        picture = "__waste-processing__/graphics/terrain/waste-outer-corner.png",
         count = 8
       },
       side =
       {
-        picture = "__garbage__/graphics/terrain/waste-side.png",
+        picture = "__waste-processing__/graphics/terrain/waste-side.png",
         count = 8
       }
     },
@@ -94,10 +94,10 @@ data:extend({
   {
     type = "item",
     name = "waste-processor",
-    icon = "__garbage__/graphics/icons/waste-processor.png",
+    icon = "__waste-processing__/graphics/icons/waste-processor.png",
     flags = {"goes-to-quickbar"},
     subgroup = "production-machine",
-    order = "b[waste-processor]",
+    order = "c[waste-processor]",
     place_result = "waste-processor",
     stack_size = 50
   },
@@ -116,7 +116,7 @@ data:extend({
   {
     type = "container",
     name = "waste-processor",
-    icon = "__garbage__/graphics/icons/waste-processor.png",
+    icon = "__waste-processing__/graphics/icons/waste-processor.png",
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 1, result = "iron-chest"},
     max_health = 250,
@@ -137,9 +137,9 @@ data:extend({
     vehicle_impact_sound =  { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
     picture =
     {
-      filename = "__garbage__/graphics/entity/waste-processor.png",
+      filename = "__waste-processing__/graphics/entity/waste-processor.png",
       priority = "extra-high",
-      width = 83,
+      width = 102,
       height = 102,
       shift = {0.4, -0.06}
     }
