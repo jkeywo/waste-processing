@@ -118,7 +118,7 @@ data:extend({
     name = "waste-processor",
     icon = "__waste-processing__/graphics/icons/waste-processor.png",
     flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 1, result = "iron-chest"},
+    minable = {mining_time = 1, result = "waste-processor"},
     max_health = 250,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",

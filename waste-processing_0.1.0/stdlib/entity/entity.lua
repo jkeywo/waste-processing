@@ -52,10 +52,15 @@ function Entity.get_data(entity)
     local entity_name = entity.name
     if not global._entity_data[entity_name] then return nil end
     local entity_category = global._entity_data[entity_name]
-    for _, entity_data in pairs(entity_category) do
-        if Entity._are_equal(entity_data.entity, entity) then
-            return entity_data.data
-        end
+    
+    if entity.unit_number then
+      return entity_category[entity.unit_number] and entity_category[entity.unit_number].data or nil
+    else
+      for _, entity_data in pairs(entity_category) do
+          if Entity._are_equal(entity_data.entity, entity) then
+              return entity_data.data
+          end
+      end
     end
     return nil
 end
@@ -77,23 +82,27 @@ function Entity.set_data(entity, data)
 
     local entity_category = global._entity_data[entity_name]
 
-    for i = #entity_category, 1, -1 do
-        local entity_data = entity_category[i]
-        if not entity_data.entity.valid then
-            table.remove(entity_category, i)
-        end
-        if Entity._are_equal(entity_data.entity, entity) then
-            local prev = entity_data.data
-            if data then
-                entity_data.data = data
-            else
-                table.remove(entity_category, i)
-            end
-            return prev
-        end
+    if entity.unit_number then
+      entity_category[entity.unit_number] = { entity = entity, data = data }
+      return data
+    else
+      for i = #entity_category, 1, -1 do
+          local entity_data = entity_category[i]
+          if not entity_data.entity.valid then
+              table.remove(entity_category, i)
+          end
+          if Entity._are_equal(entity_data.entity, entity) then
+              local prev = entity_data.data
+              if data then
+                  entity_data.data = data
+              else
+                  table.remove(entity_category, i)
+              end
+              return prev
+          end
+      end
+      table.insert(entity_category, { entity = entity, data = data })
     end
-
-    table.insert(entity_category, { entity = entity, data = data })
     return nil
 end
 
