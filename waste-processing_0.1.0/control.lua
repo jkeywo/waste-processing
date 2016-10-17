@@ -9,7 +9,20 @@ require "stdlib.time"
 local list_initialised = false
 local entity_list = {}
 
+local function count_fluids( entity )
+  local _fluids = 0
+  if entity.fluidbox and #entity.fluidbox > 0 then
+    for _, _fluid_box in event.entity.fluidbox do
+      _fluids = _fluids + _fluid_box.amount
+    end
+  end
+  return _fluids
+end
+
 local function create_polution_at( position, surface, amount )
+  -- immediatey create some air pollution
+  surface.pollute(position, amount * Config.air_pollution_ratio)
+
   -- find some unpolluted ground to contaminate
   local _new_tiles = {}
   position = Tile.from_position(position)
@@ -44,7 +57,7 @@ Event.register(defines.events.on_tick, function(event)
   for _, _entity in pairs(entity_list) do
     if _entity.valid then
       local _existing_pollution = Entity.get_data(_entity) or 0.0
-      _existing_pollution = _existing_pollution + _entity.get_item_count() * Config.managed_polution_rate
+      _existing_pollution = _existing_pollution + _entity.get_item_count() * Config.item_polution.managed
       _entity.get_inventory(defines.inventory.chest).clear()
       if _existing_pollution >= 1.0 then
         create_polution_at( _entity.position, _entity.surface, math.floor(_existing_pollution) )
@@ -64,5 +77,18 @@ end)
 
 Event.register(defines.events.on_entity_died, function(event)
   -- create unmanaged polution
-  create_polution_at( event.entity.position, event.entity.surface, math.ceil( event.entity.get_item_count() * Config.unmanaged_polution_rate ) )
+  local _polution = math.ceil( event.entity.get_item_count() * Config.item_polution.unmanaged )
+  local _fluids = count_fluids( event.entity )
+  if _fluids > 0.0 then
+    _polution = _polution + math.ceil( _fluids * Config.fluid_polution.unmanaged )
+  end
+  create_polution_at( event.entity.position, event.entity.surface, _polution )
+end)
+
+Event.register( { defines.events.on_entity_died, defines.events.on_entity_died }, function(event)
+  -- create unmanaged polution on mining fluid boxes
+  local _fluids = count_fluids( event.entity )
+  if _fluids > 0.0 then
+    create_polution_at( event.entity.position, event.entity.surface, math.ceil( _fluids * Config.fluid_polution.unmanaged ) )
+  end
 end)

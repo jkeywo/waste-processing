@@ -69,6 +69,57 @@ data:extend({
     ageing=-0.00025,
     vehicle_friction_modifier = 1.8
   },
+  {
+    type = "tile",
+    name = "waste-water",
+    collision_mask =
+    {
+      "water-tile",
+      "resource-layer",
+      "item-layer",
+      "player-layer",
+      "doodad-layer"
+    },
+    layer = 45,
+    variants =
+    {
+      main =
+      {
+        {
+          picture = "__base__/graphics/terrain/deepwater/deepwater1.png",
+          count = 8,
+          size = 1
+        },
+        {
+          picture = "__base__/graphics/terrain/deepwater/deepwater2.png",
+          count = 8,
+          size = 2
+        },
+        {
+          picture = "__base__/graphics/terrain/deepwater/deepwater4.png",
+          count = 6,
+          size = 4
+        }
+      },
+      inner_corner =
+      {
+        picture = "__base__/graphics/terrain/deepwater/deepwater-inner-corner.png",
+        count = 6
+      },
+      outer_corner =
+      {
+        picture = "__base__/graphics/terrain/deepwater/deepwater-outer-corner.png",
+        count = 6
+      },
+      side =
+      {
+        picture = "__base__/graphics/terrain/deepwater/deepwater-side.png",
+        count = 8
+      }
+    },
+    map_color={r=0.0941, g=0.2823, b=0.345},
+    ageing=0.0006
+  },
   -- waste processor
   {
     type = "technology",
