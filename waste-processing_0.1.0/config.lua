@@ -4,7 +4,7 @@ Config = {
     unmanaged = 0.05,
     managed = 0.001
   },
-  fluid_polution = {
+  fluid_pollution = {
     unmanaged = 0.05,
     managed = 0.001,
   },

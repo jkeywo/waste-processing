@@ -86,41 +86,41 @@ data:extend({
       main =
       {
         {
-          picture = "__base__/graphics/terrain/deepwater/deepwater1.png",
+          picture = "__base__/graphics/terrain/deepwater-green/deepwater-green1.png",
           count = 8,
           size = 1
         },
         {
-          picture = "__base__/graphics/terrain/deepwater/deepwater2.png",
+          picture = "__base__/graphics/terrain/deepwater-green/deepwater-green2.png",
           count = 8,
           size = 2
         },
         {
-          picture = "__base__/graphics/terrain/deepwater/deepwater4.png",
+          picture = "__base__/graphics/terrain/deepwater-green/deepwater-green4.png",
           count = 6,
           size = 4
         }
       },
       inner_corner =
       {
-        picture = "__base__/graphics/terrain/deepwater/deepwater-inner-corner.png",
+        picture = "__base__/graphics/terrain/deepwater-green/deepwater-green-inner-corner.png",
         count = 6
       },
       outer_corner =
       {
-        picture = "__base__/graphics/terrain/deepwater/deepwater-outer-corner.png",
+        picture = "__base__/graphics/terrain/deepwater-green/deepwater-green-outer-corner.png",
         count = 6
       },
       side =
       {
-        picture = "__base__/graphics/terrain/deepwater/deepwater-side.png",
+        picture = "__base__/graphics/terrain/deepwater-green/deepwater-green-side.png",
         count = 8
       }
     },
     map_color={r=0.0941, g=0.2823, b=0.345},
     ageing=0.0006
   },
-  -- waste processor
+  -- technology
   {
     type = "technology",
     name = "waste-processor",
@@ -130,6 +130,10 @@ data:extend({
       {
         type = "unlock-recipe",
         recipe = "waste-processor"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "waste-liquid-processor"
       }
     },
     prerequisites = {"automation"},
@@ -144,6 +148,7 @@ data:extend({
     },
     order = "a-b-a",
   },
+  -- waste-processor
   {
     type = "item",
     name = "waste-processor",
@@ -152,7 +157,7 @@ data:extend({
     subgroup = "production-machine",
     order = "c[waste-processor]",
     place_result = "waste-processor",
-    stack_size = 50
+    stack_size = 10
   },
   {
     type = "recipe",
@@ -197,4 +202,90 @@ data:extend({
       shift = {0.4, -0.06}
     }
   },
+  -- waste liquid processor
+  {
+    type = "item",
+    name = "waste-liquid-processor",
+    icon = "__waste-processing__/graphics/icons/waste-liquid-processor.png",
+    flags = {"goes-to-quickbar"},
+    subgroup = "production-machine",
+    order = "d[waste-liquid-processor]",
+    place_result = "waste-liquid-processor",
+    stack_size = 10
+  },
+  {
+    type = "recipe",
+    name = "waste-liquid-processor",
+    enabled = false,
+    ingredients =
+    {
+      {"iron-plate", 9},
+      {"electronic-circuit", 3},
+      {"iron-gear-wheel", 5}
+    },
+    result = "waste-liquid-processor"
+  },
+  {
+		type = "offshore-pump",
+		name = "waste-liquid-processor",
+		icon = "__waste-processing__/graphics/icons/waste-liquid-processor.png",
+		flags = { "placeable-neutral", "player-creation", "filter-directions" },
+		minable = { mining_time = 1, result = "waste-liquid-processor" },
+		max_health = 80,
+		corpse = "small-remnants",
+		fluid = "water",
+		resistances = {
+			{
+				type = "fire",
+				percent = 70
+			}
+		},
+		collision_box = { { -0.6, -0.3 }, { 0.6, 0.3 } },
+		selection_box = { { -1, -1.49 }, { 1, 0.49 } },
+		fluid_box = {
+			base_area = 1,
+			pipe_covers = pipecoverspictures(),
+			pipe_connections = {
+				{ position = { 0, 1 } },
+			},
+		},
+		pumping_speed = 0,
+		tile_width = 1,
+		picture = {
+			north = {
+				filename = "__waste-processing__/graphics/entity/waste-liquid-processor.png",
+				priority = "high",
+				shift = { 0.9, 0.05 },
+				y = 18,
+				width = 160,
+				height = 102
+			},
+			east = {
+				filename = "__waste-processing__/graphics/entity/waste-liquid-processor.png",
+				priority = "high",
+				shift = { 0.9, 0.05 },
+				x = 160,
+				y = 18,
+				width = 160,
+				height = 102
+			},
+			south = {
+				filename = "__waste-processing__/graphics/entity/waste-liquid-processor.png",
+				priority = "high",
+				shift = { 0.509375, 0.65 },
+				x = 320,
+				width = 135,
+				height = 138
+			},
+			west = {
+				filename = "__waste-processing__/graphics/entity/waste-liquid-processor.png",
+				priority = "high",
+				shift = { 0.609375, 0.05 },
+				x = 455,
+				y = 18,
+				width = 185,
+				height = 102
+			}
+		}
+	},
 })
