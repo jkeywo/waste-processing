@@ -12,7 +12,7 @@ local entity_list = {}
 local function count_fluids( entity )
   local _fluids = 0
   if entity.fluidbox and #entity.fluidbox > 0 then
-    for _, _fluid_box in entity.fluidbox do
+    for _, _fluid_box in pairs(entity.fluidbox) do
       _fluids = _fluids + _fluid_box.amount
     end
   end

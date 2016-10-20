@@ -1,6 +1,6 @@
 Config = {
-  air_pollution_ratio = 1.0,
-  item_polution = {
+  air_pollution_ratio = 100.0,
+  item_pollution = {
     unmanaged = 0.05,
     managed = 0.001
   },
